@@ -2,6 +2,16 @@ body {
     background-color: white;
 }
 
+.navbar {
+  background-color: rgba(255, 255, 255, 0.9);  /* slightly more opaque */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   /* soft subtle shadow */
+  padding: 0.5rem 1rem;                       /* vertical + horizontal padding */
+}
+
+.navbar-brand img {
+  object-fit: contain;                        /* keeps logo proportional */
+}
+
 .login-button {
   background-color: #2671f4;
   color: white;
@@ -28,6 +38,7 @@ body {
     margin-right: 5px;
     align-items: center;
 }
+
 
 .search_result {
     display: flex;
@@ -90,7 +101,19 @@ body {
     color: white;
   }
 
+  .toggle-advanced-button:hover{
+    background: #78C4EB;
+    border: #78C4EB;
+    color: white;
+  }
+
   .conference-add-button{
+    color: white;
+  }
+
+  .conference-add-button:hover{
+    background: #A47DCA;
+    border: #A47DCA;
     color: white;
   }
 
@@ -125,27 +148,55 @@ body {
 }
 
 .friend-button {
-  background: #bf3cbf;
   color: white;
 }
 
 .friend-button:hover {
-  background: #8e298e; 
+  background: #FBA1C5; 
+  border: #FBA1C5;
   color: white;
+
 }
 
-
 .saved-conf-button {
-  background: teal;
   color: white;
 }
 
 .saved-conf-button:hover {
-  background: rgb(1, 89, 89);
+  background: #C3D888;
+  border: #C3D888;
   color: white;
 }
 
 .form-check-input:checked {
   background-color: black;
   border-color: black;
+}
+
+.search-box {
+  background-color: rgba(255, 255, 255, 0.65); 
+  max-width: 800px; 
+  margin: auto;  
+  box-shadow: 0 0 6px 0.5px lightgrey;  
+}
+
+
+.text-box {
+  position: relative;  
+  width: 100%;
+}
+
+.text-box textarea {
+  resize: none; 
+  height: 10vh; 
+  min-height: 40px; 
+  max-height: 120px; 
+}
+
+.submit-button {
+  position: absolute;
+  bottom: 5px;                
+  right: 5px;       
+  height: 40px;    
+  z-index: 2;
 }

@@ -2,10 +2,20 @@ body {
   background-color: white;
 }
 
+.navbar {
+  background-color: rgba(255, 255, 255, 0.9); /* slightly more opaque */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* soft subtle shadow */
+  padding: 0.5rem 1rem; /* vertical + horizontal padding */
+}
+
+.navbar-brand img {
+  -o-object-fit: contain;
+     object-fit: contain; /* keeps logo proportional */
+}
+
 .login-button {
   background-color: #2671f4;
   color: white;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
@@ -17,7 +27,6 @@ body {
 .logout-button {
   background-color: #2671f4;
   color: white;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
@@ -28,57 +37,31 @@ body {
 
 .kubishi_logo {
   margin-right: 5px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .search_result {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  /* stacks children vertically */
+  flex-direction: column; /* stacks children vertically */
 }
 
-::-webkit-input-placeholder {
-  color: #000;
-  /* black */
-  opacity: 1;
-}
-
-:-ms-input-placeholder {
-  color: #000;
-  /* black */
-  opacity: 1;
-}
-
-::-ms-input-placeholder {
-  color: #000;
-  /* black */
+::-moz-placeholder {
+  color: #000; /* black */
   opacity: 1;
 }
 
 ::placeholder {
-  color: #000;
-  /* black */
+  color: #000; /* black */
   opacity: 1;
 }
 
 .menu_logo {
-  -webkit-transition: -webkit-transform 0.4s ease-out;
-  transition: -webkit-transform 0.4s ease-out;
   transition: transform 0.4s ease-out;
-  transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
   border: 1px solid black;
 }
 
 .menu_logo:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .title_subtext {
@@ -86,9 +69,7 @@ body {
 }
 
 .main_logo {
-  border: 1px solid black;
-  /* invisible border, keeps space */
-  -webkit-transition: border-color 0.3s ease;
+  border: 1px solid black; /* invisible border, keeps space */
   transition: border-color 0.3s ease;
 }
 
@@ -98,7 +79,7 @@ body {
 
 .conference_count {
   font-size: 15px;
-  color: #7a7676fd;
+  color: rgba(122, 118, 118, 0.9921568627);
 }
 
 .highlight-count {
@@ -106,14 +87,12 @@ body {
 }
 
 .bg-image {
-  position: fixed;
-  /* stays in place while scrolling */
+  position: fixed; /* stays in place while scrolling */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  /* pushes it behind all other content */
+  z-index: -1; /* pushes it behind all other content */
 }
 
 .bg-image img {
@@ -121,11 +100,16 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  -webkit-filter: blur(50px);
-          filter: blur(50px);
+  filter: blur(50px);
 }
 
 .toggle-advanced-button {
+  color: white;
+}
+
+.toggle-advanced-button:hover {
+  background: #78C4EB;
+  border: #78C4EB;
   color: white;
 }
 
@@ -133,10 +117,15 @@ body {
   color: white;
 }
 
+.conference-add-button:hover {
+  background: #A47DCA;
+  border: #A47DCA;
+  color: white;
+}
+
 .favorite-button {
   background-color: #e19f06;
   color: white;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
@@ -148,7 +137,6 @@ body {
 .outlook-button {
   background-color: #2563EB;
   color: white;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
@@ -160,7 +148,6 @@ body {
 .google-callendar-button {
   background: #0F9D58;
   color: white;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
@@ -170,22 +157,22 @@ body {
 }
 
 .friend-button {
-  background: #bf3cbf;
   color: white;
 }
 
 .friend-button:hover {
-  background: #8e298e;
+  background: #FBA1C5;
+  border: #FBA1C5;
   color: white;
 }
 
 .saved-conf-button {
-  background: teal;
   color: white;
 }
 
 .saved-conf-button:hover {
-  background: #015959;
+  background: #C3D888;
+  border: #C3D888;
   color: white;
 }
 
@@ -193,4 +180,30 @@ body {
   background-color: black;
   border-color: black;
 }
-/*# sourceMappingURL=styles.css.map */
+
+.search-box {
+  background-color: rgba(255, 255, 255, 0.65);
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 0 6px 0.5px lightgrey;
+}
+
+.text-box {
+  position: relative;
+  width: 100%;
+}
+
+.text-box textarea {
+  resize: none;
+  height: 10vh;
+  min-height: 40px;
+  max-height: 120px;
+}
+
+.submit-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  height: 40px;
+  z-index: 2;
+}/*# sourceMappingURL=styles.css.map */

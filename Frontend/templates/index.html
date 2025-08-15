@@ -5,28 +5,33 @@
   <img src="static/img/background3.jpg" alt="Nothing Honey" class="w-full h-screen object-cover blur-50 brightness-50 scale-105">
 </picture>
 
-<nav class="navbar">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="/">
-        <img src="static/img/logo_bg.png" width="40" height="40" class="menu_logo me-2 rounded-2" alt="">
-        <div class="d-flex flex-column">
-          <span class="fs-5 fw-bold text-dark">Kubishi Scholar</span>
-          <span class="title_subtext text-muted">Semantic Conference Discovery</span>
-        </div>
-      </a>
-    <div class="d-flex ms-auto align-items-center">
+<nav class="navbar navbar-expand-lg shadow-sm">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+    <!-- Brand / Logo -->
+    <a class="d-flex align-items-center text-decoration-none" href="/">
+      <img src="{{ url_for('static', filename='img/logo_bg.png') }}" 
+           width="40" height="40" 
+           class="me-2 rounded-2" alt="Logo">
+      <div class="d-flex flex-column">
+        <span class="fs-5 fw-bold text-dark">Kubishi Scholar</span>
+        <span class="title_subtext text-muted">Semantic Conference Discovery</span>
+      </div>
+    </a>
+
+    <!-- Right-aligned login/logout -->
+    <div class="d-flex align-items-center">
       {% if session_user_name and session_user_name.userinfo %}
         <span class="me-3">
-            <strong>Welcome {{ session_user_name.userinfo.name }}!</strong>
+          <strong>Welcome {{ session_user_name.userinfo.name }}!</strong>
         </span>
         <a href="/logout" class="logout-button btn btn-sm">Logout</a>
       {% else %}
-        <span class="me-3">
-            <strong> Welcome! </strong>
-        </span>
+        <span class="me-3"><strong>Welcome!</strong></span>
         <a href="/login" class="login-button btn btn-sm">Login</a>
       {% endif %}
     </div>
+
   </div>
 </nav>
 
@@ -39,16 +44,17 @@
   </div>
 
   <!-- START FORM: Wrap everything in a single form -->
+<div class="search-box p-3 rounded-4">
   <form method="GET" action="/">
-    <!-- Top row: Basic search -->
-    
+    <div class="d-flex align-items-center gap-2">
+      <div class="text-box mb-2">
+        <textarea class="form-control border-dark" id="searchInput" name="query" placeholder="Search academic topics..."></textarea>
+        <button type="submit" class="submit-button btn btn-dark">Search</button>
+      </div>
 
-    <div class="d-flex align-items-center  gap-2">
-      <input class="form-control border-dark mb-1" type="text" id="searchInput" name="query" placeholder="Search academic topics...">
-      <input class="form-control border-dark" type="number" name="num_results" placeholder="Count" style="max-width: 100px;" max="100">
-      <button type="submit" class="btn btn-dark">Search</button>
-      
+
     </div>
+
     <div class="d-flex gap-2 align-items-center mb-2">
       <div class="form-check">
         <input class="form-check-input" type="radio" name="search_type" id="Semantic-Toggle" value="semantic" checked>
@@ -58,82 +64,85 @@
         <input class="form-check-input" type="radio" name="search_type" id="ID_Toggle" value="id">
         <label class="form-check-label" for="ID_Toggle">ID Search</label>
       </div>
+      <input class="form-control border-dark" type="number" name="num_results" placeholder="Count" style="max-width: 100px;" max="100">
     </div>
 
 
 
-    <div class=" d-flex gap-2 mb-2">
-      <button class="toggle-advanced-button btn btn-dark" type="button" data-bs-toggle="collapse"
-      data-bs-target="#advancedSearch"
-      aria-expanded="{{ 'true' if advanced_open else 'false' }}"
-      aria-controls="advancedSearch">
-      Toggle Advanced Search
-      </button>
+        <div class=" d-flex gap-2 mb-2 justify-content-evenly">
+          <button class="toggle-advanced-button btn btn-dark rounded-3 flex-fill" type="button" data-bs-toggle="collapse"
+          data-bs-target="#advancedSearch"
+          aria-expanded="{{ 'true' if advanced_open else 'false' }}"
+          aria-controls="advancedSearch">
+          &#x2193; Advanced Search
+          </button>
 
-      {% if session %}
-        <a href="/add_conf" class="conference-add-button btn btn-dark" target="_blank" rel="noopener noreferrer">
-          + Add Conference
-        </a>
+          {% if session %}
+            <a href="/add_conf" class="conference-add-button btn btn-dark rounded-3 flex-fill" target="_blank" rel="noopener noreferrer">
+              + Add Conference
+            </a>
 
-        <a href="/saved_conference" class="saved-conf-button btn" target="_blank" rel="noopener noreferrer" >
-          View Saved
-        </a>
-    
-        <a href="/connection_search" class="friend-button btn" target="_blank" rel="noopener noreferrer" >
-        Find Friends
-        </a>
-      
-      {% else %}
-        <button class="btn btn-outline-secondary" disabled title="Login to add a conference">
-          🔒 Add Conference
-        </button>
+            <a href="/saved_conference" class="saved-conf-button btn btn-dark rounded-3 flex-fill" target="_blank" rel="noopener noreferrer" >
+              &#9829; View Saved
+            </a>
+        
+            <a href="/connection_search" class="friend-button btn btn-dark rounded-3 flex-fill" target="_blank" rel="noopener noreferrer" >
+              &#x2605; Find Friends
+            </a>
+          
+          {% else %}
+            <button class="btn btn-outline-secondary flex-fill" disabled title="Login to add a conference">
+              🔒 Add Conference
+            </button>
 
-      {% endif %}
+          {% endif %}
 
-    
-      <!-- Toggle Button -->
+        
+          <!-- Toggle Button -->
 
-    </div>
-    
-    <!-- Collapsible Advanced Search Section -->
-    <div class="collapse mt-2 {% if advanced_open %}show{% endif %}" id="advancedSearch">
-      <div class="card card-body">
-        <div class="row g-3">
-          <!-- Start Date -->
-          <div class="col-md-6">
-            <label>Start Date:</label>
-            <input class="form-control mb-1" type="date" name="date_span_first" value="{{ date_span_first or '' }}">
-            <input class="form-control" type="date" name="date_span_second" value="{{ date_span_second or '' }}">
-          </div>
+        </div>
+        
+        <!-- Collapsible Advanced Search Section -->
+        <div class="collapse mt-2 {% if advanced_open %}show{% endif %}" id="advancedSearch">
+          <div class="card card-body">
+            <div class="row g-3">
+              <!-- Start Date -->
+              <div class="col-md-6">
+                <label>Start Date:</label>
+                <input class="form-control mb-1" type="date" name="date_span_first" value="{{ date_span_first or '' }}">
+                <input class="form-control" type="date" name="date_span_second" value="{{ date_span_second or '' }}">
+              </div>
 
-          <!-- Deadline Date -->
-          <div class="col-md-6">
-            <label>Deadline Date:</label>
-            <input class="form-control mb-1" type="date" name="deadline_first" value="{{ deadline_first or '' }}">
-            <input class="form-control" type="date" name="deadline_second" value="{{ deadline_second or '' }}">
-          </div>
+              <!-- Deadline Date -->
+              <div class="col-md-6">
+                <label>Deadline Date:</label>
+                <input class="form-control mb-1" type="date" name="deadline_first" value="{{ deadline_first or '' }}">
+                <input class="form-control" type="date" name="deadline_second" value="{{ deadline_second or '' }}">
+              </div>
 
-          <!-- Location -->
-          <div class="col-md-6">
-            <label>Location:</label>
-            <input type="text" name="location" class="form-control" placeholder="Location" value="{{ location or '' }}">
-          </div>
+              <!-- Location -->
+              <div class="col-md-6">
+                <label>Location:</label>
+                <input type="text" name="location" class="form-control" placeholder="Location" value="{{ location or '' }}">
+              </div>
 
-          <!-- Ranking Source -->
-          <div class="col-md-6">
-            <label>Ranking Source:</label>
-            <select id="ranking-source" name="ranking_source" class="form-control">
-              <option value="" disabled {% if not ranking_source %}selected{% endif %} hidden>Select Ranking Source</option>
-              <option value="core" {% if ranking_source == 'core' %}selected{% endif %}>CORE</option>
-              <option value="era" {% if ranking_source == 'era' %}selected{% endif %}>ERA</option>
-              <option value="scholar" {% if ranking_source == 'scholar' %}selected{% endif %}>Google Scholar</option>
-            </select>
-            <div id="ranking-score-container" style="display: none;" class="mt-2"></div>
+              <!-- Ranking Source -->
+              <div class="col-md-6">
+                <label>Ranking Source:</label>
+                <select id="ranking-source" name="ranking_source" class="form-control">
+                  <option value="" disabled {% if not ranking_source %}selected{% endif %} hidden>Select Ranking Source</option>
+                  <option value="core" {% if ranking_source == 'core' %}selected{% endif %}>CORE</option>
+                  <option value="era" {% if ranking_source == 'era' %}selected{% endif %}>ERA</option>
+                  <option value="scholar" {% if ranking_source == 'scholar' %}selected{% endif %}>Google Scholar</option>
+                </select>
+                <div id="ranking-score-container" style="display: none;" class="mt-2"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </form>
+      </form>
+  </div>
+
 <div class="container">
     {% if query or ID_query %}
         <div class="search_result container">
@@ -141,7 +150,7 @@
             {% if articles %}
               {% for article in articles %}
                   {% if article.metadata.url %}
-                      <div class="mb-4 border border-1 border-dark p-2 btn text-start bg-white"
+                      <div class="mb-4 border border-1 border-dark p-2 btn text-start bg-white rounded-3"
                           data-topics="{{ article.metadata.topics | replace('\n', ', ') }}">
                           <h5 class="mb-1">
                               <strong>{{ loop.index }}.</strong>
